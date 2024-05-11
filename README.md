@@ -16,15 +16,19 @@ This is ment for rapid prototyping and easy of use
 ## Getting Started
 
 ```sh
+# install
 git clone https://github.com/rivasjoaquin02/next-template
 pnpm install
 
 # setup env variables
 vim .env
+
+# run in dev
+pnpm dev
 ```
 
 ## Docs
 
-[NextAuth - Docs](https://authjs.dev/getting-started)
-[Drizzle - Docs](https://orm.drizzle.team/docs/overview)
-[Drizzle - Schema](https://orm.drizzle.team/docs/sql-schema-declaration)
+- [NextAuth - Docs](https://authjs.dev/getting-started)
+- [Drizzle - Docs](https://orm.drizzle.team/docs/overview)
+- [Drizzle - Schema](https://orm.drizzle.team/docs/sql-schema-declaration)
