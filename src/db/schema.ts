@@ -10,7 +10,7 @@ export const roles = pgEnum("role", ROLES);
 export const users = pgTable("user", {
     id: serial("id").primaryKey(),
     fullname: varchar("fullname").notNull(),
-    username: varchar("username", { length: 256 }).unique().notNull(),
+    username: varchar("username").unique().notNull(),
     password: varchar("password").notNull(),
     role: roles("role").default("user").notNull(),
 });

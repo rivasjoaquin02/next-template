@@ -1,7 +1,7 @@
 "use server";
 
 import { AuthError } from "next-auth";
-import { signIn, signOut } from "@/auth";
+import { signIn } from "@/auth";
 import { loginSchema } from "@/validations/auth";
 
 const defaultValues = {
@@ -52,8 +52,4 @@ export async function login(prevState: any, formData: FormData) {
         }
         throw error;
     }
-}
-
-export async function logout() {
-    await signOut();
 }

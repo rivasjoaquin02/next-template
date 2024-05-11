@@ -1,9 +1,8 @@
 import NextAuth from "next-auth";
-import { authConfig } from "./auth.config";
 import Credentials from "next-auth/providers/credentials";
-import { loginSchema } from "./validations/auth";
-import { getUserByUsername } from "./actions/users";
-import bcrypt from "bcryptjs";
+import { authConfig } from "./auth.config";
+import { getUser } from "./actions/auth";
+import { getUserById } from "./actions/users";
 
 export const {
     auth,
@@ -20,28 +19,36 @@ export const {
                 password: { label: "password", type: "password" },
             },
             async authorize(credentials) {
-                const validatedCredentials = loginSchema.safeParse(credentials);
+                const user = await getUser({
+                    username: credentials.username as string,
+                    password: credentials.password as string,
+                });
 
-                if (validatedCredentials.success) {
-                    const { username, password } = validatedCredentials.data;
-                    const user = await getUserByUsername(username);
-                    if (!user) return null;
+                if (!user) return null;
 
-                    const passwordMatch = await bcrypt.compare(
-                        password,
-                        user.password,
-                    );
-
-                    if (passwordMatch)
-                        return {
-                            id: user.id.toString(),
-                            name: user.username,
-                            role: user.role,
-                        };
-                }
-
-                return null;
+                return {
+                    id: user.id.toString(),
+                    name: user.username,
+                    role: user.role,
+                };
             },
         }),
     ],
+    callbacks: {
+        async jwt({ token }) {
+            if (!token.sub) return token;
+
+            const existingUser = await getUserById(+token.sub);
+            if (!existingUser) return token;
+
+            token.role = existingUser.role;
+            return token;
+        },
+        session({ session, token }) {
+            session.user.id = token.sub;
+            if (session.user && token.role)
+                session.user.role = token.role as Role;
+            return session;
+        },
+    },
 });

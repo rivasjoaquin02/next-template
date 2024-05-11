@@ -2,18 +2,20 @@
 
 import { db } from "@/db";
 import { type User, users } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { unstable_noStore as noStore } from "next/cache";
-import bcrypt from "bcryptjs";
+import { hashPassword } from "./auth";
+
+export async function getUserById(id: number) {
+    const [userInDB] = await db.select().from(users).where(eq(users.id, id));
+    return userInDB;
+}
 
 export async function getUserByUsername(username: string) {
-    noStore();
-
     const [userInDB] = await db
         .select()
         .from(users)
         .where(eq(users.username, username));
-
     return userInDB;
 }
 
@@ -25,7 +27,7 @@ export async function getAllUsers() {
 export async function addUser(user: User) {
     noStore();
 
-    const hashedPassword = await bcrypt.hash(user.password, 8);
+    const hashedPassword = await hashPassword(user.password);
     user = { ...user, password: hashedPassword };
 
     return db.insert(users).values(user).returning();
