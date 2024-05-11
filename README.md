@@ -2,12 +2,12 @@
 
 This is ment for rapid prototyping and easy of use
 
-Key Features
+## Key Features
 
 - [x] Authentication (w/ Next-Auth v5)
     - [x] Middleware
     - [x] Credentials Provider
-    - [] Role Based Access Control
+    - [ ] Role Based Access Control
 - [x] Database (w/ Drizzle ORM + Postgres)
 - [x] Example Table (w/ React Hook + Zod)
 - [x] Example Form (w/ Server Actions + Zod)
