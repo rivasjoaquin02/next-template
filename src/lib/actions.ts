@@ -2,21 +2,18 @@
 
 import { AuthError } from "next-auth";
 import { signIn, signOut } from "@/auth";
-import { loginSchema } from "@/types/schema";
+import { loginSchema } from "@/validations/auth";
 
 const defaultValues = {
-    email: "",
+    username: "",
     password: "",
 };
 
 export async function login(prevState: any, formData: FormData) {
     try {
-        const email = formData.get("email");
-        const password = formData.get("password");
-
         const validatedFields = loginSchema.safeParse({
-            email: email,
-            password: password,
+            username: formData.get("username"),
+            password: formData.get("password"),
         });
 
         if (!validatedFields.success) {

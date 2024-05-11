@@ -1,37 +1,59 @@
-# NextAuth v5 - Middleware Authentication
+# Next Template for Full-Stact Tecnichal Interview
 
-Key Features:
+This is ment for rapid prototyping and easy of use
 
--   Next.js 14
--   Next Auth v5 (Auth.js)
--   Credentials Provider
--   Protected routes & redirect if logged
--   Server Actions
--   Forms
--   useFormState hook
--   Server-side form validation with zod
--   Unit and Integration tests
--   Complete test setup for Next Auth
--   Mocks of server actions and useFormState hook
+## Features
 
-This repository serves as an example of how to implement an authentication flow with middleware using next-auth v5. this repo also contains the necessary configs to setup a test environment for next-auth v5 using jest/testing-library, also containing examples of how to mock a server action and the useFormState hook.
+- [ ] Auth + RBAC (w/ Next-Auth v5)
+- [x] Database (w/ Drizzle ORM)
+- [ ] UI Components (w/ Shadcn)
+- [ ] Example CRUD (w/ Server Actions)
+- [ ] Example Table & Form (w/ React Hook + Zod)
 
-This repository uses react and react-dom in canary versions.
+## Getting Started
 
-### Cloning the repository
+1. Install Project
 
-```shell
-git clone https://github.com/renanleonel/next-auth-v5-middleware.git
+```sh
+pnpm install
 ```
 
-### Install packages
+## Next-Auth v5
 
-```shell
-pnpm i
+[Reference](https://authjs.dev/reference/nextjs)
+[Getting Started](https://authjs.dev/getting-started)
+
+```sh
+# install
+pnpm add next-auth@beta
+
+
+# env variable
+# generate a secret with `openssl rand -base64 33`
+AUTH_SECRET=""
 ```
 
-### Start application
+Encrypt/Decrypt Passwords
 
-```shell
-pnpm run dev
+```sh
+pnpm add bcryptjs
+pnpm add -D @types/bcryptjs
+```
+
+## Drizzle ORM
+
+[Docs](https://orm.drizzle.team/docs/overview)
+[Schema](https://orm.drizzle.team/docs/sql-schema-declaration)
+
+```sh
+# install
+pnpm add drizzle-orm pg
+pnpm add -D drizzle-kit
+
+# env variables
+
+# drizzle.config.ts
+
+# upload changes to schema
+pnpm drizzle-kit push:pg
 ```

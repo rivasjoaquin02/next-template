@@ -20,12 +20,12 @@ const Form = () => {
 
     return (
         <form action={formAction} className='space-y-4 w-full max-w-sm'>
-            <Input required name='email' placeholder='email' />
+            <Input required name='username' placeholder='johndoe' />
             <Input
                 required
                 name='password'
                 type='password'
-                placeholder='password'
+                placeholder='1234'
             />
             <Button variant='secondary' className='w-full' type='submit'>
                 submit

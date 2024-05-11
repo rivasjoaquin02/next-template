@@ -1,15 +1,9 @@
 import NextAuth from "next-auth";
 import { authConfig } from "./auth.config";
 import Credentials from "next-auth/providers/credentials";
-
-async function getUser(email: string, password: string): Promise<any> {
-    return {
-        id: 1,
-        name: "test user",
-        email: email,
-        password: password,
-    };
-}
+import { loginSchema } from "./validations/auth";
+import { getUserByUsername } from "./actions/users";
+import bcrypt from "bcryptjs";
 
 export const {
     auth,
@@ -22,16 +16,31 @@ export const {
         Credentials({
             name: "credentials",
             credentials: {
-                email: { label: "email", type: "text" },
+                username: { label: "username", type: "text" },
                 password: { label: "password", type: "password" },
             },
             async authorize(credentials) {
-                const user = await getUser(
-                    credentials.email as string,
-                    credentials.password as string,
-                );
+                const validatedCredentials = loginSchema.safeParse(credentials);
 
-                return user ?? null;
+                if (validatedCredentials.success) {
+                    const { username, password } = validatedCredentials.data;
+                    const user = await getUserByUsername(username);
+                    if (!user) return null;
+
+                    const passwordMatch = await bcrypt.compare(
+                        password,
+                        user.password,
+                    );
+
+                    if (passwordMatch)
+                        return {
+                            id: user.id.toString(),
+                            name: user.username,
+                            role: user.role,
+                        };
+                }
+
+                return null;
             },
         }),
     ],
