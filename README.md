@@ -1,59 +1,30 @@
-# Next Template for Full-Stact Tecnichal Interview
+# Next Template for Full-Stack Tecnichal Interview
 
 This is ment for rapid prototyping and easy of use
 
-## Features
+Key Features
 
-- [ ] Auth + RBAC (w/ Next-Auth v5)
-- [x] Database (w/ Drizzle ORM)
-- [ ] UI Components (w/ Shadcn)
-- [ ] Example CRUD (w/ Server Actions)
-- [ ] Example Table & Form (w/ React Hook + Zod)
+- [x] Authentication (w/ Next-Auth v5)
+    - [x] Middleware
+    - [x] Credentials Provider
+    - [] Role Based Access Control
+- [x] Database (w/ Drizzle ORM + Postgres)
+- [x] Example Table (w/ React Hook + Zod)
+- [x] Example Form (w/ Server Actions + Zod)
+- [x] Components with Shadcn-ui (button, form, input, label, select, table)
 
 ## Getting Started
 
-1. Install Project
-
 ```sh
+git clone https://github.com/rivasjoaquin02/next-template
 pnpm install
+
+# setup env variables
+vim .env
 ```
 
-## Next-Auth v5
+## Docs
 
-[Reference](https://authjs.dev/reference/nextjs)
-[Getting Started](https://authjs.dev/getting-started)
-
-```sh
-# install
-pnpm add next-auth@beta
-
-
-# env variable
-# generate a secret with `openssl rand -base64 33`
-AUTH_SECRET=""
-```
-
-Encrypt/Decrypt Passwords
-
-```sh
-pnpm add bcryptjs
-pnpm add -D @types/bcryptjs
-```
-
-## Drizzle ORM
-
-[Docs](https://orm.drizzle.team/docs/overview)
-[Schema](https://orm.drizzle.team/docs/sql-schema-declaration)
-
-```sh
-# install
-pnpm add drizzle-orm pg
-pnpm add -D drizzle-kit
-
-# env variables
-
-# drizzle.config.ts
-
-# upload changes to schema
-pnpm drizzle-kit push:pg
-```
+[NextAuth - Docs](https://authjs.dev/getting-started)
+[Drizzle - Docs](https://orm.drizzle.team/docs/overview)
+[Drizzle - Schema](https://orm.drizzle.team/docs/sql-schema-declaration)
