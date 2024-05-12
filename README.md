@@ -32,3 +32,29 @@ pnpm dev
 - [NextAuth - Docs](https://authjs.dev/getting-started)
 - [Drizzle - Docs](https://orm.drizzle.team/docs/overview)
 - [Drizzle - Schema](https://orm.drizzle.team/docs/sql-schema-declaration)
+
+## Postgres Setup
+
+```yaml
+version: '3.8'
+services:
+  db:
+    container_name: postgres
+    image: postgres:alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: 1234
+    ports:
+      - "5050:80"
+```
